@@ -1,0 +1,9 @@
+{
+  "mysql": {
+    "dsn": "root:12345678@tcp(127.0.0.1:3306)/ape_test?charset=utf8mb4&parseTime=True&loc=Local"
+  },
+  "test": {
+    "secretId": "AKIDs9DEeJc5ySsoddLGPXhuYIgod3KLfM3a",
+    "secretKey": "tvtjxAqscwsrrJLM2iTGwlxlDgnsYDK7"
+  }
+}
