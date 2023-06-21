@@ -3,7 +3,7 @@ package action
 import (
 	"context"
 	"fmt"
-	bankimpl "github.com/roseboy/bank-server/internal/bank-impl"
+	bank "github.com/roseboy/bank-server/internal/bank-impl"
 	"github.com/roseboy/go-ng/plugin"
 )
 
@@ -24,7 +24,7 @@ func OpenAccount(ctx context.Context, request, response any) error {
 	fmt.Printf("Login AppId: %d\n", meta.AppId)
 	var req, resp = request.(*OpenAccountRequest), response.(*OpenAccountResponse)
 
-	bankRet, err := bankimpl.CallBankOpenAccount(req.BankType, &bankimpl.OpenAccountArgs{})
+	bankRet, err := bank.CallBankOpenAccount(req.BankType, &bank.OpenAccountArgs{})
 	if err != nil {
 		return err
 	}
