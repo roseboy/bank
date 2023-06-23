@@ -2,7 +2,7 @@ module github.com/roseboy/bank-server
 
 go 1.19
 
-require github.com/roseboy/go-ng v1.0.2
+require github.com/roseboy/go-ng v1.0.3-0.20230623024831-3552ebb2e289
 
 require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect

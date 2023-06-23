@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	bank "github.com/roseboy/bank-server/internal/bank-impl"
-	"github.com/roseboy/go-ng/plugin"
+	"github.com/roseboy/go-ng/plugin/action"
 )
 
 // OpenAccountRequest Request
@@ -20,7 +20,7 @@ type OpenAccountResponse struct {
 
 // OpenAccount action
 func OpenAccount(ctx context.Context, request, response any) error {
-	meta := plugin.ExtractActionMeta(ctx)
+	meta := action.ExtractMeta(ctx)
 	fmt.Printf("Login AppId: %d\n", meta.AppId)
 	var req, resp = request.(*OpenAccountRequest), response.(*OpenAccountResponse)
 

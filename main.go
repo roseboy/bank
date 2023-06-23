@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/roseboy/bank-server/internal/action"
+	act "github.com/roseboy/bank-server/internal/action"
 	"github.com/roseboy/bank-server/internal/config"
 	"github.com/roseboy/bank-server/internal/dao"
 	"github.com/roseboy/go-ng/ng"
 	"github.com/roseboy/go-ng/plugin"
+	"github.com/roseboy/go-ng/plugin/action"
 	"time"
 )
 
@@ -17,13 +18,9 @@ func main() {
 	err = dao.InitMySQL()
 	panicErr(err)
 
-	actionPlg := &plugin.ActionPlugin{
-		Endpoint:       "/api",
-		SignatureCheck: true,
-		AuthInfoFunc:   dao.GetAuthInfo,
-	}
-	actionPlg.RegisterAction("OpenAccount", action.OpenAccount,
-		&action.OpenAccountRequest{}, &action.OpenAccountResponse{})
+	actionPlg := plugin.NewActionPlugin("/api", true, dao.GetAuthInfo)
+	actionPlg.RegisterAction("OpenAccount", act.OpenAccount,
+		&act.OpenAccountRequest{}, &act.OpenAccountResponse{})
 
 	go TestApi()
 
@@ -43,7 +40,7 @@ func TestApi() {
 	secretKey := config.Cfg.Test.SecretKey
 	timestamp := time.Now().Unix() + 5
 	body := fmt.Sprintf(`{"Action":"OpenAccount","Timestamp":%d,"AppId":111,"BankType":"CCB"}`, timestamp)
-	sign := plugin.CalcSignature(&plugin.CalcSignatureArgs{
+	sign := action.CalcSignature(&action.CalcSignatureArgs{
 		Service:   "/api",
 		Timestamp: timestamp,
 		Method:    "POST",
